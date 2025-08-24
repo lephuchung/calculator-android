@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context=".MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/bar_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Calculator"
+            app:titleTextColor="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/textViewHistory"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:autoSizeMaxTextSize="50sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:background="@color/background_color"
+        android:gravity="center|end"
+        android:textColor="@color/text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+    <TextView
+        android:id="@+id/textViewResult"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:autoSizeMaxTextSize="75sp"
+        android:autoSizeMinTextSize="18sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:background="@color/background_color"
+        android:gravity="center|end"
+        android:textColor="@color/text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHistory" />
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:rowCount="5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnAC"
+            android:layout_width="wrap_content"
+            android:height="80dp"
+            android:text="@string/ac"
+            android:textColor="@color/orange"
+            android:textSize="30sp"
+            android:background="@color/background_color"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:layout_columnWeight="1"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDel"
+            android:layout_width="wrap_content"
+            android:height="80dp"
+            android:text="@string/del"
+            android:textColor="@color/orange"
+            android:textSize="30sp"
+            android:background="@color/background_color"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:layout_columnWeight="1"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDevide"
+            android:layout_width="wrap_content"
+            android:height="80dp"
+            android:text="@string/divide"
+            android:textColor="@color/orange"
+            android:textSize="30sp"
+            android:background="@color/background_color"
+            android:layout_column="2"
+            android:layout_row="0"
+            android:layout_columnWeight="1"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnMulti"
+            android:layout_width="wrap_content"
+            android:height="80dp"
+            android:text="@string/multi"
+            android:textColor="@color/orange"
+            android:textSize="30sp"
+            android:background="@color/background_color"
+            android:layout_column="3"
+            android:layout_row="0"
+            android:layout_columnWeight="1"/>
+
+    </GridLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
