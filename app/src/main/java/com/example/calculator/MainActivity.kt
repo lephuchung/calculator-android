@@ -11,9 +11,10 @@ import com.example.calculator.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     lateinit var mainBinding: ActivityMainBinding
     var number: String? = null
-
     var firstNumber: Double = 0.0
     var lastNumber: Double = 0.0
+    var status: String? = null;
+    var operator: Boolean = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,19 +74,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         mainBinding.btnDevide.setOnClickListener {
-
+            callCalculation("division")
         }
 
         mainBinding.btnMulti.setOnClickListener {
-
+            callCalculation("multiplication")
         }
 
         mainBinding.btnPlus.setOnClickListener {
-
+            callCalculation("addition")
         }
 
         mainBinding.btnMinus.setOnClickListener {
-
+            callCalculation("substraction")
         }
 
         mainBinding.btnEqual.setOnClickListener {
@@ -97,39 +98,60 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onNumberClicked(clickedNumber: String){
-        if(number == null) {
+    fun callCalculation(curStatus: String){
+        if (operator){
+            when(status){
+                "multiplication" -> multiply()
+                "division" -> divide()
+                "substraction" -> minus()
+                "addition" -> plus()
+                else -> firstNumber = mainBinding.textViewResult.text.toString().toDouble()
+            }
+        }
+        status = curStatus
+        operator = false
+        number = null
+    }
+
+
+    fun onNumberClicked(clickedNumber: String) {
+        if (number == null) {
             number = clickedNumber
         } else {
             number += clickedNumber
         }
 
         mainBinding.textViewResult.text = number
+        operator = true;
     }
 
-    fun plus(){
+    fun plus() {
         lastNumber = mainBinding.textViewResult.text.toString().toDouble()
         firstNumber += lastNumber
         mainBinding.textViewResult.text = firstNumber.toString()
     }
 
-    fun minus(){
+    fun minus() {
         lastNumber = mainBinding.textViewResult.text.toString().toDouble()
         firstNumber -= lastNumber
         mainBinding.textViewResult.text = firstNumber.toString()
     }
 
-    fun multiply(){
+    fun multiply() {
         lastNumber = mainBinding.textViewResult.text.toString().toDouble()
         firstNumber *= lastNumber
         mainBinding.textViewResult.text = firstNumber.toString()
     }
 
-    fun divide(){
+    fun divide() {
         lastNumber = mainBinding.textViewResult.text.toString().toDouble()
-        if(lastNumber == 0.0)
-            Toast.makeText(applicationContext, "The divisor cannot be zero", Toast.LENGTH_LONG).show()
-        else{
+        if (lastNumber == 0.0)
+            Toast.makeText(
+                applicationContext,
+                "The divisor cannot be zero",
+                Toast.LENGTH_LONG
+            ).show()
+        else {
             firstNumber /= lastNumber
             mainBinding.textViewResult.text = firstNumber.toString()
         }
