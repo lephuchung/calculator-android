@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
     var status: String? = null;
     var operator: Boolean = false;
     val myFormatter = DecimalFormat("######.######")
+    var history: String = ""
+    var currentResult: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,6 +93,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         mainBinding.btnEqual.setOnClickListener {
+            history = mainBinding.textViewHistory.text.toString()
+            currentResult = mainBinding.textViewResult.text.toString()
             if (operator) {
                 when (status) {
                     "multiplication" -> multiply()
@@ -99,17 +103,34 @@ class MainActivity : AppCompatActivity() {
                     "addition" -> plus()
                     else -> firstNumber = mainBinding.textViewResult.text.toString().toDouble()
                 }
+                mainBinding.textViewHistory.text =
+                    history.plus(currentResult).plus("=").plus(mainBinding.textViewResult.text.toString())
             }
-
             operator = false
         }
 
         mainBinding.btnDot.setOnClickListener {
-
+            number = if (number == null) {
+                "0."
+            } else {
+                "$number."
+            }
+            mainBinding.textViewResult.text = number;
         }
     }
 
     fun callCalculation(curStatus: String) {
+        history = mainBinding.textViewHistory.text.toString()
+        currentResult = mainBinding.textViewResult.text.toString()
+        var ops: String = when (curStatus) {
+            "multiplication" -> "*"
+            "division" -> "/"
+            "substraction" -> "-"
+            "addition" -> "+"
+            else -> "?"
+        }
+
+        mainBinding.textViewHistory.text = history.plus(currentResult).plus(ops)
         if (operator) {
             when (status) {
                 "multiplication" -> multiply()
