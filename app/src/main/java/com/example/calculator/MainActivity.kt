@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     val myFormatter = DecimalFormat("######.######")
     var history: String = ""
     var currentResult: String = ""
+    var dotControl: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,18 +105,22 @@ class MainActivity : AppCompatActivity() {
                     else -> firstNumber = mainBinding.textViewResult.text.toString().toDouble()
                 }
                 mainBinding.textViewHistory.text =
-                    history.plus(currentResult).plus("=").plus(mainBinding.textViewResult.text.toString())
+                    history.plus(currentResult).plus("=")
+                        .plus(mainBinding.textViewResult.text.toString())
             }
             operator = false
         }
 
         mainBinding.btnDot.setOnClickListener {
-            number = if (number == null) {
-                "0."
-            } else {
-                "$number."
+            if (dotControl) {
+                number = if (number == null) {
+                    "0."
+                } else {
+                    "$number."
+                }
+                dotControl = false
+                mainBinding.textViewResult.text = number;
             }
-            mainBinding.textViewResult.text = number;
         }
     }
 
@@ -143,12 +148,18 @@ class MainActivity : AppCompatActivity() {
         status = curStatus
         operator = false
         number = null
+        dotControl = true
     }
 
     fun onDelClicked() {
         number?.let {
-            number = it.substring(0, it.length - 1)
-            mainBinding.textViewResult.text = number;
+            if (it.length == 1){
+                onACClicked()
+            } else {
+                number = it.substring(0, it.length - 1)
+                mainBinding.textViewResult.text = number;
+                dotControl = !number!!.contains(".")
+            }
         }
 
     }
@@ -160,6 +171,7 @@ class MainActivity : AppCompatActivity() {
         mainBinding.textViewHistory.text = ""
         firstNumber = 0.0
         lastNumber = 0.0
+        dotControl = true
     }
 
 
